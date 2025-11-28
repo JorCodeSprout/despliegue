@@ -1,15 +1,18 @@
 services:
   # 2. Servicio de Backend PHP-FPM (Servicio Privado)
-  - type: pserv
-    name: app # El host interno usado por Nginx: 'app:9000'
+  - type: web # <--- CAMBIO CLAVE: Usar 'web'
+    name: app
     env: docker
     dockerfilePath: docker/php/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
-    # [OPCIONAL] Si necesitas ejecutar migraciones, usa un startCommand:
-    # startCommand: "sh -c 'php artisan migrate --force && php-fpm -F'"
-    # Nota: Si php-fpm es el CMD, Render lo usará por defecto.
+    # NUEVO: Marcarlo como interno para que no tenga URL pública
+    internal: true
+    # NUEVO: Especificar el puerto que expone (PHP-FPM usa 9000)
+    # Aunque el Dockerfile ya lo expone, es buena práctica en el YAML
+    ports:
+      - 9000
 
     # Variables de Entorno del Backend de Laravel
     envVars:
