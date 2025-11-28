@@ -14,7 +14,7 @@ services:
     # Variables de Entorno del Backend de Laravel
     envVars:
       - key: DB_HOST
-        value: gondola.proxy.rlwy.net # Host estático de Railway
+        value: gondola.proxy.rlwy.net
       - key: DB_USERNAME
         value: root 
       - key: DB_PASSWORD
@@ -40,6 +40,7 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
+    # El puerto 80 es el puerto de escucha por defecto de Nginx y no necesita ser especificado aquí
 
     # CRÍTICO: Comando que compila React y mueve los archivos
     buildCommand: |
@@ -52,4 +53,4 @@ services:
       - key: APP_URL
         value: https://${ritmatiza-web.host}
 
-    healthCheckPath: /health.html # Apunta a un archivo estático
+    healthCheckPath: /health.html

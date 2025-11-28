@@ -1,6 +1,6 @@
 FROM nginx:stable-alpine
 
-# 1. Instalar herramientas necesarias (incluyendo ping) y crear usuario www-data
+# 1. Instalar herramientas necesarias (incluyendo ping para el entrypoint.sh)
 RUN apk update && apk add --no-cache shadow iputils && \
     groupadd -g 82 www-data || true && \
     usermod -a -G www-data nginx
@@ -13,6 +13,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 COPY docker/nginx/nginx-prod.conf /etc/nginx/conf.d/default.conf
 
 # CRÍTICO: Asegurarse de que el punto de entrada de Laravel existe
+# Nota: Esto es necesario porque el buildCommand de Render aún no se ha ejecutado.
 COPY backend/public/index.php /var/www/html/public/index.php
 RUN mkdir -p /var/www/html/public/assets # Directorio para el frontend compilado
 
@@ -22,3 +23,4 @@ RUN chown -R nginx:nginx /var/www/html/public
 # 4. Usar el script de espera como punto de entrada
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# CMD no es necesario aquí.

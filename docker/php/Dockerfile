@@ -37,5 +37,5 @@ RUN composer install --no-dev --optimize-autoloader
 # Establecer permisos CRÍTICOS para Laravel
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Comando de inicio del contenedor
+# Comando de inicio del contenedor (Inicia PHP-FPM en el puerto 9000 por defecto)
 CMD ["/usr/local/sbin/php-fpm", "-F"]
