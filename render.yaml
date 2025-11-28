@@ -1,11 +1,7 @@
 services:
-  # 1. Base de Datos MySQL (Servicio Privado)
-  # * Debe crearse manualmente en el dashboard de Render.
-  - type: pserv 
-    name: ritmatiza-mysql
-    plan: starter
-    # ELIMINADO: env: mysql <-- Esto causaba los errores de runtime/startCommand. 
-    # Render lo tratará como un servicio privado genérico que requiere la conexión por nombre/host.
+  # 1. Base de Datos MySQL (ELIMINADO del YAML)
+  # Este recurso debe crearse manualmente en el dashboard de Render
+  # como un servicio de tipo "MySQL Database" y no como un pserv genérico.
 
   # 2. Servicio de Backend PHP-FPM (Servicio Interno)
   - type: web
@@ -15,16 +11,17 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    # ELIMINADO: startCommand <-- Este campo no se permite con env: docker.
-    
+    # startCommand eliminado, la lógica está en el Dockerfile
+
     # Variables de Entorno del Backend de Laravel
     envVars:
       - key: DB_HOST
-        value: ${ritmatiza-mysql.host}
+        # Usamos el host del servicio MySQL que CREARÁS manualmente
+        value: ${ritmatiza-mysql.host} 
       - key: DB_USERNAME
-        value: TU_USUARIO_ESTATICO_DB # Reemplazar manualmente
+        value: TU_USUARIO_ESTATICO_DB 
       - key: DB_PASSWORD
-        value: TU_PASSWORD_ESTATICO_DB # Reemplazar manualmente
+        value: TU_PASSWORD_ESTATICO_DB 
       - key: DB_DATABASE
         value: ritmatiza_db
       - key: APP_KEY
