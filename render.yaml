@@ -10,7 +10,6 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    port: 9000 # Puerto interno de PHP-FPM
 
     # Variables de Entorno del Backend de Laravel
     envVars:
