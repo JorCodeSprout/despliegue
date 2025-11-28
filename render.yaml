@@ -4,14 +4,14 @@ services:
   # como un servicio de tipo "MySQL Database" y no como un pserv genérico.
 
   # 2. Servicio de Backend PHP-FPM (Servicio Interno)
-  - type: web
+  - type: pserv
     name: app
     env: docker
     dockerfilePath: docker/php/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
-    # startCommand eliminado, la lógica está en el Dockerfile
+    port: 9000
 
     # Variables de Entorno del Backend de Laravel
     envVars:
