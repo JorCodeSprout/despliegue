@@ -1,0 +1,39 @@
+.formularios, .tarjetas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 300px;
+    grid-template-rows: auto auto;
+}
+
+.tarjeta_profesor, .tarjeta_puntos {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px #3B9AFF;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    grid-row: 17;
+    overflow: hidden;
+}
+
+.tarjeta_profesor {
+    margin-bottom: 25px;
+    margin-left: 20px;
+    background-color: #fff;
+}
+
+.tarjeta_puntos {
+    margin-left: 20px;
+    margin-bottom: 25px;
+    background-color: #FFE680;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.tarjeta_puntos h3, .tarjeta_puntos h2 {
+    margin: 0;
+    font-size: 2.5rem;
+}

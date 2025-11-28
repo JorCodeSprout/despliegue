@@ -1,0 +1,135 @@
+.sugerenciasTitulo {
+    margin-left: 300px;
+}
+
+.APROBADA {
+    border-top: 20px solid #3FEE4C;
+}
+
+.RECHAZADA {
+    border-top: 20px solid #FF3E3E;
+}
+
+.PENDIENTE {
+    border-top: 20px solid #FFE88E;
+}
+
+.contenedor {
+    margin-left: 300px;
+    margin-right: 50px;
+}
+
+.resultadosContainer {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.cancionCard {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+    overflow: hidden; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.cancionCard:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.songArticle {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 0; 
+    width: 100%;
+    background-color: transparent; 
+    border-bottom: none;
+}
+
+.songCover {
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 0;
+    margin: 0; 
+}
+
+.songInfo {
+    flex-grow: 1; 
+    width: 100%;
+    min-width: 0; 
+    padding: 15px 15px 10px 15px;
+}
+
+.songInfo h3 {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.songInfo p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.escucharButton {
+    display: block; 
+    justify-content: center;
+    width: 50%; 
+    text-align: center;
+    padding: 8px 12px;
+    background-color: #3B9AFF;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border-radius: 50px; 
+}
+
+.escucharButton:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.acciones_solicitud {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.acciones_solicitud button {
+    transform: scale(1);
+    border: none;
+}
+
+.aceptar {
+    background-color: #28a745;
+    color: white;
+}
+
+.aceptar:hover {
+    background-color: #3FEE4C;
+}
+
+.rechazar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.rechazar:hover {
+    background-color: #FF3E3E;
+}

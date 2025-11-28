@@ -1,0 +1,77 @@
+# Render Blueprint para despliegue Full Stack (Laravel + React + Docker + MySQL)
+
+services:
+  # 1. Base de Datos Administrada (MySQL)
+  # Este servicio reemplaza el contenedor 'db' de tu docker-compose.
+  - type: pserv
+    name: ritmatiza-mysql
+    plan: starter # Plan básico. Ajustar si necesitas más potencia.
+    region: oregon # Elegir la región más cercana.
+    databaseName: ritmatiza_db
+    env: mysql
+    ipAllowList: [] # Permite la conexión desde otros servicios de Render
+    
+  # 2. Servicio de Backend PHP-FPM (Servicio Interno)
+  # Nombrado 'app' para compatibilidad con fastcgi_pass app:9000; en Nginx.
+  - type: web
+    name: app # El nombre del servicio DEBE ser 'app'
+    env: docker
+    dockerfilePath: docker/php/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    branch: main
+    # Este puerto es interno y se usa para la comunicación con Nginx.
+    port: 9000 
+    # El comando de inicio de FPM que garantiza los permisos
+    startCommand: "sh -c 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache && exec docker-php-entrypoint php-fpm'"
+    
+    # Variables de Entorno del Backend de Laravel
+    envVars:
+      - key: DB_HOST
+        value: ${ritmatiza-mysql.host} # Host generado por el servicio de BD
+      - key: DB_USERNAME
+        value: ${ritmatiza-mysql.user}
+      - key: DB_PASSWORD
+        value: ${ritmatiza-mysql.password}
+      - key: DB_DATABASE
+        value: ritmatiza_db
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_ENV
+        value: production
+      # CRÍTICO: Render necesita saber que esta es una API, no un servicio expuesto
+      - key: NGINX_HOST
+        value: ritmatiza-web.onrender.com # Se puede cambiar después, por ahora placeholder
+      
+  # 3. Servicio Web Nginx (El Punto de Entrada Público)
+  # Se construye usando el Dockerfile de Nginx y sirve como proxy inverso.
+  - type: web
+    name: ritmatiza-web
+    env: docker
+    dockerfilePath: docker/nginx/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    branch: main
+    port: 80 # Nginx escucha en el puerto 80
+    
+    # CRÍTICO: Comando de construcción que compila React y mueve los archivos
+    # Asume que tu carpeta de React es 'frontend' y la salida es 'dist' o 'build'
+    buildCommand: |
+      # 1. Instalar dependencias del frontend
+      cd frontend && npm install
+      # 2. Construir la aplicación React (Vite/CRA)
+      npm run build
+      # 3. Mover los archivos estáticos de React a la carpeta pública de Laravel
+      # Esto permite que Nginx sirva los archivos. (Ajustar 'dist' si usa 'build')
+      mv dist/* ../backend/public/
+      cd ..
+    
+    # Variables de Entorno para el Nginx Dockerfile (si las necesita)
+    envVars:
+      # Render ya proporciona HTTPS. No se necesitan variables SSL aquí.
+      - key: APP_URL
+        value: https://${ritmatiza-web.host}
+    
+    # CRÍTICO: Este 'healthCheckPath' debe apuntar a algo simple y estático
+    # para que Render sepa que Nginx está activo.
+    healthCheckPath: /

@@ -1,0 +1,90 @@
+* {
+    overflow-x: hidden;
+}
+
+.listaEntregas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; 
+    margin-bottom: 20px;
+}
+
+.entrega_item {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.entregas_container {
+    margin-left: 300px;
+    background-color: #F2F8FF;
+    width: auto;
+}
+
+.estado_pendiente, .estado_aprobada, .estado_rechazada {
+    background-color: #f8f9fa;
+    padding: 18px 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    max-width: 450px;
+    position: relative; 
+    overflow: hidden;
+}
+
+.estado_pendiente:hover, .estado_aprobada:hover, .estado_rechazada:hover {
+    border-left: 0px;
+}
+
+.estado_pendiente {
+    border-left: 5px solid #FFA040;
+}
+
+.estado_pendiente:hover {
+    border-right: 5px solid #FFA040;
+}
+
+.estado_aprobada {
+    border-left: 5px solid #28a745;
+}
+
+.estado_aprobada:hover {
+    border-right: 5px solid #28a745;
+}
+
+.estado_rechazada {
+    border-left: 5px solid #dc3545;
+}
+
+.estado_rechazada:hover {
+    border-right: 5px solid #dc3545;
+}
+
+.acciones_calificacion {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.acciones_calificacion button {
+    transform: scale(1);
+    border: none;
+}
+
+.btn_aprobar {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn_aprobar:hover {
+    background-color: #3FEE4C;
+}
+
+.btn_suspender {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn_suspender:hover {
+    background-color: #FF3E3E;
+}

@@ -1,0 +1,22 @@
+.playlist_contenedor {
+    margin-bottom: 30px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    overflow: hidden; 
+    height: 220px;
+}
+
+.grid_container, .permiso_denegado {
+    margin-left: 300px;
+}
+
+.boton_recargar {
+    background-color: #FADA5F;
+    margin-bottom: 20px;
+}
+
+.boton_recargar:hover {
+    transform: scale(1.2);
+    margin-left: 20px;
+    background-color: #FFE88E;
+}

@@ -1,0 +1,168 @@
+.buscador, .mensajes {
+    margin-left: 300px;
+}
+
+.input_container {
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2px;
+}
+
+.input_container input {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.input_container input:focus~label,
+.input_container input:not(:placeholder-shown) ~ label {
+    border-width: 2px;
+    top: -18px;
+    font-size: 12px;
+    color: #3B9AFF;
+}
+
+.input_container input:focus {
+    border-width: 2px;
+    border-color: #3B9AFF;
+}
+
+.input_container label {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    transition: 0.2s ease all;
+    pointer-events: none;
+    color: #ccc;
+}
+
+.container {
+    margin-left: 300px;
+    margin-right: 50px;
+}
+
+.resultadosContainer {
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.cancionCard {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    background-color: white; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+    overflow: hidden; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.cancionCard:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.songArticle {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 0; 
+    width: 100%;
+    background-color: transparent; 
+    border-bottom: none;
+}
+
+.songCover {
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+    border-radius: 0;
+    margin: 0; 
+}
+
+.songInfo {
+    flex-grow: 1; 
+    width: 100%;
+    min-width: 0; 
+    padding: 15px 15px 10px 15px;
+}
+
+.songInfo h3 {
+    margin: 0;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.songInfo p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+    color: #888;
+}
+
+.escucharButton {
+    display: block; 
+    justify-content: center;
+    width: 50%; 
+    text-align: center;
+    padding: 8px 12px;
+    background-color: #3B9AFF;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    border-radius: 50px; 
+}
+
+.escucharButton:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.sugerirButton, .conseguirPuntos  {
+    width: 100%; 
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 0 0 12px 12px; 
+}
+
+.sugerirButton {
+    background-color: #f0f0f0; 
+    color: #333;
+}
+
+.sugerirButton:hover {
+    background-color: #FADA5F; 
+    color: #000;
+}
+
+.conseguirPuntos {
+    background-color: #8000D6; 
+    color: #fff;
+}
+
+.conseguirPuntos:hover {
+    background-color: #BE86E4; 
+    color: #000;
+}

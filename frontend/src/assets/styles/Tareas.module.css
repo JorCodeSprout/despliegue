@@ -1,0 +1,138 @@
+.tareas_container {
+    flex-grow: 1;
+    overflow-y: hidden;
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+
+.tareas_estudiante {
+    margin-left: 300px;
+}
+
+.cargando {
+    margin-left: 300px;
+}
+
+.tareas_container h1 {
+    margin: 0;
+}
+
+.lista_tareas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 500px));    
+    gap: 20px;
+}
+
+.entrega_form {
+    max-width: 250px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 10px 7px #3B9AFF;
+}
+
+.tarea_card {
+    background-color: #f8f9fa;
+    padding: 18px 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #007bff;
+    margin-bottom: 15px;
+    position: relative; 
+    overflow: hidden;
+}
+
+.tarea_card:hover {
+    border-right: 5px solid #007bff;
+    border-left: 0px;
+    transform: scale(1.01);
+    background-color: #eeeeee;
+}
+
+.tarea_card h4 {
+    margin-top: 0;
+    font-size: 1.15em;
+    color: #333; 
+    font-weight: 600;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+
+.tarea_card p {
+    margin: 3px 0;
+    color: #555;
+    line-height: 1.4;
+}
+
+.acciones_calificacion {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+.acciones_calificacion button {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.btn_aprobar {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn_suspender {
+    background-color: #dc3545;
+    color: white;
+}
+
+.acciones_profesor {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.tareas {
+    margin: 0;
+}
+
+#div_btn {
+    height: 50px;
+}
+
+.btn_crear {
+    background-color: #FADA5F;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 5px;
+    margin-left: 10px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn_seleccionar_archivo {
+    background-color: #007bff;
+    color: white;
+}
+
+#mostrarMas {
+    /* Elimina todos los estilos del botón */
+    all: unset;
+    background-color: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 2px;
+}
+
+.btn_subir {
+    background-color: #c5defa;
+    color: #007bff;
+    margin-top: 12px;
+}

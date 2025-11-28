@@ -1,0 +1,181 @@
+form {
+    position: relative;
+    margin: 20px;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 15px #3B9AFF;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    color: black;
+}
+
+.input-container {
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+
+    display: block;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.input-container input:focus~label,
+.input-container input:not(:placeholder-shown) ~ label,
+textarea:focus ~ label,
+textarea:not(:placeholder-shown) ~ label {
+    border-width: 2px;
+    top: -18px;
+    font-size: 12px;
+    color: #3B9AFF;
+}
+
+.input-container input:focus {
+    border-width: 2px;
+    border-color: #3B9AFF;
+}
+
+.input-container label {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+
+.term-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: flex-start;
+}
+
+.term-container label {
+    margin-left: 8px;
+}
+
+input[type="submit"] {
+    width: 80%;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+form p.olvidado {
+    width: 75%;
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+form p.olvidado a {
+    font-size: 0.8rem;
+}
+
+form h2 {
+    margin-bottom: 8px;
+}
+
+form p {
+    color: grey;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+form .iniciar {
+    margin-bottom: 12px;
+}
+
+.submit-btn, .iniciar {
+    background-color: #3B9AFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover, .iniciar:hover {
+    background-color: #2c72e2;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    resize: none;
+}
+
+.tarea-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.error-message, .success-message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.error-message {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.success-message {
+    background-color: #d1fae5;
+    color: #10b981;
+}
+
+.return-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10; 
+    padding: 8px 15px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+button[type="submit"] {
+    background-color: #FADA5F;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}

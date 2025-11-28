@@ -1,0 +1,146 @@
+form {
+    margin: 20px;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 15px 20px #3B9AFF;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    color: black;
+}
+
+.input-container {
+    position: relative;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+
+    display: block;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.input-container input:focus~label,
+.input-container input:not(:placeholder-shown) ~ label,
+textarea:focus ~ label,
+textarea:not(:placeholder-shown) ~ label {
+    border-width: 2px;
+    top: -18px;
+    font-size: 12px;
+    color: #3B9AFF;
+}
+
+.input-container input:focus {
+    border-width: 2px;
+    border-color: #3B9AFF;
+}
+
+.input-container label {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    color: #ccc;
+}
+
+.term-container {
+    margin-bottom: 20px;
+}
+
+input[type="submit"] {
+    width: 80%;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+form p.olvidado {
+    width: 75%;
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+form p.olvidado a {
+    font-size: 0.8rem;
+}
+
+form h2 {
+    margin-bottom: 8px;
+}
+
+form p {
+    color: grey;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    margin-bottom: 12px;
+}
+
+form .iniciar {
+    margin-bottom: 12px;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    resize: none;
+}
+
+#iniciar {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#iniciar:hover {
+    background-color: #0053AD;
+    color:#fff;
+}
+
+.registro {
+    background-color: #58A9FF;
+    color: #fff;
+}
+
+.registro:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.logged-contact-form {
+    margin-left: 300px;
+    margin-top: 50px;
+    height: 600px;
+}
+
+.noLogged {
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    min-width: 100dvw;
+    width: 100dvw;
+}

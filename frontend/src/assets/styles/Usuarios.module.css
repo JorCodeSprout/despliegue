@@ -1,0 +1,170 @@
+.administrador {
+    margin-left: 250px;
+    display: grid;
+    grid-template-columns: 500px  1.5fr; 
+}
+
+.formulario, .contenedor {
+    margin-left: 300px;
+}
+
+.input_container select {
+    background-color: transparent;
+    width: 100%;
+    padding: 10px 10px 10px 5px; 
+    font-size: 14px;
+    margin-top: -15px;
+    display: block;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid grey; 
+    cursor: pointer;
+    color: black; 
+}
+
+.input_container select:first-of-type {
+    margin-top: -20px;
+}
+
+.input_container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2px;
+    padding-top: 20px;
+}
+
+.input_container input {
+    width: 100%;
+    padding: 10px 10px 10px 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: block;
+    outline: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.input_container input:focus~label,
+.input_container input:not(:placeholder-shown) ~ label,
+textarea:not(:placeholder-shown) ~ label {
+    border-width: 2px;
+    top: 5px;
+    font-size: 12px;
+    color: #3B9AFF;
+}
+
+textarea:focus ~ label,
+textarea:not(:placeholder-shown) ~ label{
+    border-width: 2px;
+    top: -15px;
+    font-size: 12px;
+    color: #3B9AFF;
+}
+
+.input_container input:focus {
+    border-width: 2px;
+    border-color: #3B9AFF;
+}
+
+.crear {
+    margin-top: 10px;
+    background-color: #FADA5F;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.input_container label {
+    position: absolute;
+    left: 5px;
+    top: 25px;
+}
+
+.mostrar_usuarios {
+    margin-top: 25px;
+}
+
+.tabla_card, .tabla_card2 {
+    flex-grow: 1;
+    top: 50px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 5px 10px #3B9AFF;
+}
+
+.tabla_card {
+    margin-left: 20px;
+    padding: 20px 0;
+    margin-right: 20px;
+}
+
+.titulo_listado {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.tabla_card h3 {
+    margin-left: 20px;
+}
+
+.tabla_card2 {
+    padding: 20px;
+    margin-right: 20px;
+    width: 80vw;
+    max-width: 1000px;
+    margin-left: 300px;
+    margin-bottom: 50px;
+}
+
+.tabla_scroll_container {
+    overflow-y: auto;
+    max-height: 50vh;
+    margin-top: 16px;
+    margin-right: -30px;
+}
+
+.tabla_scroll_container2 {
+    width: 100%;
+    max-height: 80vh;
+    margin: 0 auto;
+}
+
+table {
+    top: initial;
+    margin-left: 0;
+    background-color: #fff;
+    width: 100%; 
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #FADA5F;
+    color: #213547;
+}
+
+thead th {
+    padding: 10px 15px;
+    border-bottom: 2px solid #213547;
+    text-align: left;
+    font-weight: bold;
+    top: 0;
+    z-index: 10;
+}
+
+tbody td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background-color: #ccc;
+}
