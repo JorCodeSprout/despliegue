@@ -1,28 +1,25 @@
 services:
-  # 1. Base de Datos MySQL (EXTERNAL - Railway)
-  # Este servicio ha sido eliminado del YAML porque es externo.
-
   # 2. Servicio de Backend PHP-FPM (Servicio Privado)
   - type: pserv
-    name: app
+    name: app # El host interno usado por Nginx: 'app:9000'
     env: docker
     dockerfilePath: docker/php/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
+    # [OPCIONAL] Si necesitas ejecutar migraciones, usa un startCommand:
+    # startCommand: "sh -c 'php artisan migrate --force && php-fpm -F'"
+    # Nota: Si php-fpm es el CMD, Render lo usará por defecto.
 
     # Variables de Entorno del Backend de Laravel
     envVars:
+      # [SEGURIDAD] Estas credenciales de Railway están visibles. 
+      # Considera usar Secret Files o el dashboard de Render para inyectar estos valores.
       - key: DB_HOST
         value: gondola.proxy.rlwy.net
       - key: DB_USERNAME
         value: root 
-      - key: DB_PASSWORD
-        value: bKKteZDDnEdMMgSYRPgvETHwoZzGnfwX 
-      - key: DB_DATABASE
-        value: railway
-      - key: DB_PORT
-        value: 15296
+      # ... (otras variables de DB)
       - key: DB_CONNECTION
         value: mysql
       - key: APP_KEY
@@ -40,17 +37,12 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    # El puerto 80 es el puerto de escucha por defecto de Nginx y no necesita ser especificado aquí
-
-    # CRÍTICO: Comando que compila React y mueve los archivos
-    buildCommand: |
-      cd frontend && npm install
-      npm run build
-      mv dist/* ../backend/public/
-      cd ..
+    
+    # ELIMINADO: buildCommand (la compilación se hace ahora en el Dockerfile)
 
     envVars:
       - key: APP_URL
-        value: https://${ritmatiza-web.host}
-
+        value: https://${ritmatiza-web.host} # Esto inyecta la URL de Render automáticamente
+    
+    # [OPCIONAL] Health check es correcto, pero debe apuntar a un archivo *existente*
     healthCheckPath: /health.html

@@ -1,26 +1,42 @@
+# -------------------- STAGE 1: COMPILACIÓN DE REACT --------------------
+FROM node:20-alpine AS frontend_builder
+
+WORKDIR /app
+# Copia solo los archivos necesarios para la compilación
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+
+# Copia el resto del código y compila
+COPY frontend /app
+# Asumo que tu script de build genera la carpeta 'dist' dentro de 'frontend'
+RUN npm run build 
+# Si tu script genera 'build', cambia 'dist' por 'build'
+
+# -------------------- STAGE 2: SERVIDOR NGINX FINAL --------------------
 FROM nginx:stable-alpine
 
-# 1. Instalar herramientas necesarias (incluyendo ping para el entrypoint.sh)
-RUN apk update && apk add --no-cache shadow netcat-openbsd && \
-    groupadd -g 82 www-data || true && \
-    usermod -a -G www-data nginx
+# 1. Instalar herramientas
+RUN apk update && apk add --no-cache netcat-openbsd
 
-# NUEVO: Copiar el script de entrada y darle permisos de ejecución
+# 2. Copiar la configuración de Nginx y el Entrypoint
 COPY docker/nginx/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# 2. Copiar configuración de Nginx
 COPY docker/nginx/nginx-prod.conf /etc/nginx/conf.d/default.conf
 
-# CRÍTICO: Asegurarse de que el punto de entrada de Laravel existe
-# Nota: Esto es necesario porque el buildCommand de Render aún no se ha ejecutado.
+# 3. Copiar el Frontend COMPILADO desde la etapa anterior
+# CRÍTICO: Copiar los archivos compilados de React a la raíz de Nginx (/usr/share/nginx/html)
+COPY --from=frontend_builder /app/dist /var/www/html/public/assets/
+# Si React usa rutas absolutas, puede que necesites copiar los archivos principales (index.html) a la raíz:
+# COPY --from=frontend_builder /app/dist /var/www/html/public/ 
+
+# 4. Copiar el punto de entrada de Laravel (index.php) y establecer permisos
 COPY backend/public/index.php /var/www/html/public/index.php
-RUN mkdir -p /var/www/html/public/assets # Directorio para el frontend compilado
 
-# 3. Establecer permisos
+# Asegurar permisos y directorios
 RUN chown -R nginx:nginx /var/www/html/public
+RUN mkdir -p /var/log/nginx && chown nginx:nginx /var/log/nginx
 
-# 4. Usar el script de espera como punto de entrada
+# 5. Ejecución
+USER nginx
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-# CMD no es necesario aquí.
