@@ -13,6 +13,8 @@ services:
     # Aunque el Dockerfile ya lo expone, es buena práctica en el YAML
     ports:
       - 9000
+    # En el servicio 'app' del render.yaml
+    startCommand: "php /var/www/html/artisan migrate --force && php-fpm -F"
 
     # Variables de Entorno del Backend de Laravel
     envVars:
