@@ -1,12 +1,12 @@
 services:
-  # 1. Base de Datos Administrada (MySQL)
-  - type: database # CORREGIDO: Usamos 'database' para la BD administrada
+  # 1. Base de Datos MySQL (Servicio Privado)
+  # Necesitas crear esta base de datos manualmente en el dashboard de Render.
+  - type: pserv # Tipo genérico para la base de datos
     name: ritmatiza-mysql
     plan: starter
-    region: oregon # Válido en type: database
-    databaseName: ritmatiza_db # Válido en type: database
     env: mysql
-    ipAllowList: [] # Válido en type: database
+    port: 3306 # Puerto interno estándar de MySQL para el servicio privado
+    # Nota: Los campos databaseName, region, e ipAllowList NO son válidos aquí.
 
   # 2. Servicio de Backend PHP-FPM (Servicio Interno)
   - type: web
@@ -16,7 +16,7 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    # ELIMINADO: port: 9000 - El campo 'port' no es necesario para type: web
+    # Se elimina 'port: 9000'. El puerto es gestionado internamente por el startCommand.
     startCommand: "sh -c 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache && exec docker-php-entrypoint php-fpm'"
 
     # Variables de Entorno del Backend de Laravel
@@ -24,10 +24,13 @@ services:
       - key: DB_HOST
         value: ${ritmatiza-mysql.host}
       - key: DB_USERNAME
-        value: ${ritmatiza-mysql.user}
+        # IMPORTANTE: Reemplazar con el usuario estático de la BD creada manualmente en Render
+        value: TU_USUARIO_ESTATICO_DB
       - key: DB_PASSWORD
-        value: ${ritmatiza-mysql.password}
+        # IMPORTANTE: Reemplazar con la contraseña estática de la BD creada manualmente en Render
+        value: TU_PASSWORD_ESTATICO_DB
       - key: DB_DATABASE
+        # Asegúrate de que este nombre coincida con el nombre de la BD que creaste manualmente
         value: ritmatiza_db
       - key: APP_KEY
         generateValue: true
@@ -44,7 +47,7 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    # ELIMINADO: port: 80 - El campo 'port' no es necesario para type: web
+    # Se elimina 'port: 80'. Render usa el puerto 80 por defecto para servicios web.
 
     # CRÍTICO: Comando que compila React y mueve los archivos
     buildCommand: |
