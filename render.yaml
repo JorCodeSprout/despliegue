@@ -1,11 +1,11 @@
 services:
   # 1. Base de Datos MySQL (Servicio Privado)
+  # * Debe crearse manualmente en el dashboard de Render.
   - type: pserv 
     name: ritmatiza-mysql
     plan: starter
-    env: mysql
-    # ELIMINADO: port: 3306 <--- Esto causaba el error 'field port not found'
-    # Render asume el puerto 3306 al ver 'env: mysql'
+    # ELIMINADO: env: mysql <-- Esto causaba los errores de runtime/startCommand. 
+    # Render lo tratará como un servicio privado genérico que requiere la conexión por nombre/host.
 
   # 2. Servicio de Backend PHP-FPM (Servicio Interno)
   - type: web
@@ -15,8 +15,8 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    startCommand: "sh -c 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache && exec docker-php-entrypoint php-fpm'"
-
+    # ELIMINADO: startCommand <-- Este campo no se permite con env: docker.
+    
     # Variables de Entorno del Backend de Laravel
     envVars:
       - key: DB_HOST
