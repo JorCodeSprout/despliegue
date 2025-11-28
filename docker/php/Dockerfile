@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    libpq-dev \
     libzip-dev \
     net-tools \
     acl \
@@ -27,8 +26,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 USER root
 WORKDIR /var/www/html
 
-# 5. Copiar el código de la aplicación (el contexto es el root del proyecto)
-# NOTA: Solo se copia el backend. El frontend se compila y se mueve a 'public' en el buildCommand del Nginx.
+# 5. Copiar el código de la aplicación (Backend de Laravel)
 COPY backend /var/www/html
 
 # 6. Instalar dependencias de Laravel y definir el comando de inicio
@@ -36,13 +34,8 @@ COPY backend /var/www/html
 # Instalar las dependencias de Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Establecer permisos (esto estaba en tu startCommand original)
-# Esto es CRÍTICO para que Laravel pueda escribir en los directorios de cache y logs.
+# Establecer permisos CRÍTICOS para Laravel
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Comando de inicio del contenedor (CMD), que Render ejecuta por defecto
-# ¡Esto reemplaza al startCommand en render.yaml!
-CMD ["/usr/local/sbin/php-fpm", "-F"] 
-
-# Opcionalmente, puedes usar tu comando original (si usas la imagen oficial de PHP):
-# CMD sh -c "exec docker-php-entrypoint php-fpm"
+# Comando de inicio del contenedor
+CMD ["/usr/local/sbin/php-fpm", "-F"]

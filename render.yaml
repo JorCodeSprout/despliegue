@@ -1,9 +1,8 @@
 services:
-  # 1. Base de Datos MySQL (ELIMINADO del YAML)
-  # Este recurso debe crearse manualmente en el dashboard de Render
-  # como un servicio de tipo "MySQL Database" y no como un pserv genérico.
+  # 1. Base de Datos MySQL (EXTERNAL - Railway)
+  # Este servicio ha sido eliminado del YAML porque es externo.
 
-  # 2. Servicio de Backend PHP-FPM (Servicio Interno)
+  # 2. Servicio de Backend PHP-FPM (Servicio Privado)
   - type: pserv
     name: app
     env: docker
@@ -11,21 +10,22 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    port: 9000
+    port: 9000 # Puerto interno de PHP-FPM
 
     # Variables de Entorno del Backend de Laravel
     envVars:
       - key: DB_HOST
-        # Usamos el host del servicio MySQL que CREARÁS manualmente
-        value: gondola.proxy.rlwy.net
+        value: gondola.proxy.rlwy.net # Host estático de Railway
       - key: DB_USERNAME
         value: root 
       - key: DB_PASSWORD
         value: bKKteZDDnEdMMgSYRPgvETHwoZzGnfwX 
       - key: DB_DATABASE
         value: railway
+      - key: DB_PORT
+        value: 15296
       - key: DB_CONNECTION
-        value: mysql 
+        value: mysql
       - key: APP_KEY
         generateValue: true
       - key: APP_ENV
@@ -53,4 +53,4 @@ services:
       - key: APP_URL
         value: https://${ritmatiza-web.host}
 
-    healthCheckPath: /
+    healthCheckPath: /health.html # Apunta a un archivo estático

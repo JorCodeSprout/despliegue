@@ -9,9 +9,12 @@ RUN apk update && apk add --no-cache shadow iputils && \
 COPY docker/nginx/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# 2. Copiar configuración de Nginx y archivos compilados
+# 2. Copiar configuración de Nginx
 COPY docker/nginx/nginx-prod.conf /etc/nginx/conf.d/default.conf
-COPY backend/public /var/www/html/public
+
+# CRÍTICO: Asegurarse de que el punto de entrada de Laravel existe
+COPY backend/public/index.php /var/www/html/public/index.php
+RUN mkdir -p /var/www/html/public/assets # Directorio para el frontend compilado
 
 # 3. Establecer permisos
 RUN chown -R nginx:nginx /var/www/html/public
@@ -19,4 +22,3 @@ RUN chown -R nginx:nginx /var/www/html/public
 # 4. Usar el script de espera como punto de entrada
 EXPOSE 80
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-# ELIMINADO: CMD ["nginx", "-g", "daemon off;"]
