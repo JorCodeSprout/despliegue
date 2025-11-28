@@ -1,13 +1,13 @@
 services:
   # 1. Base de Datos Administrada (MySQL)
-  - type: pserv # CORREGIDO: Usamos 'pserv' para evitar el error 'unknown type "database"'
+  - type: database # CORREGIDO: Usamos 'database' para la BD administrada
     name: ritmatiza-mysql
     plan: starter
-    region: oregon
-    databaseName: ritmatiza_db
+    region: oregon # Válido en type: database
+    databaseName: ritmatiza_db # Válido en type: database
     env: mysql
-    ipAllowList: []
-    
+    ipAllowList: [] # Válido en type: database
+
   # 2. Servicio de Backend PHP-FPM (Servicio Interno)
   - type: web
     name: app
@@ -16,9 +16,9 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    port: 9000 
+    # ELIMINADO: port: 9000 - El campo 'port' no es necesario para type: web
     startCommand: "sh -c 'chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache && exec docker-php-entrypoint php-fpm'"
-    
+
     # Variables de Entorno del Backend de Laravel
     envVars:
       - key: DB_HOST
@@ -35,7 +35,7 @@ services:
         value: production
       - key: NGINX_HOST
         value: ritmatiza-web.onrender.com
-      
+
   # 3. Servicio Web Nginx (El Punto de Entrada Público)
   - type: web
     name: ritmatiza-web
@@ -44,17 +44,17 @@ services:
     dockerContext: .
     autoDeploy: true
     branch: main
-    port: 80
-    
+    # ELIMINADO: port: 80 - El campo 'port' no es necesario para type: web
+
     # CRÍTICO: Comando que compila React y mueve los archivos
     buildCommand: |
       cd frontend && npm install
       npm run build
       mv dist/* ../backend/public/
       cd ..
-    
+
     envVars:
       - key: APP_URL
         value: https://${ritmatiza-web.host}
-    
+
     healthCheckPath: /
