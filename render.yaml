@@ -1,6 +1,6 @@
 services:
   # 1. Base de Datos Administrada (MySQL)
-  - type: database
+  - type: pserv # CORREGIDO: Usamos 'pserv' para evitar el error 'unknown type "database"'
     name: ritmatiza-mysql
     plan: starter
     region: oregon
