@@ -17,13 +17,15 @@ services:
     envVars:
       - key: DB_HOST
         # Usamos el host del servicio MySQL que CREARÁS manualmente
-        value: ${ritmatiza-mysql.host} 
+        value: gondola.proxy.rlwy.net
       - key: DB_USERNAME
-        value: TU_USUARIO_ESTATICO_DB 
+        value: root 
       - key: DB_PASSWORD
-        value: TU_PASSWORD_ESTATICO_DB 
+        value: bKKteZDDnEdMMgSYRPgvETHwoZzGnfwX 
       - key: DB_DATABASE
-        value: ritmatiza_db
+        value: railway
+      - key: DB_CONNECTION
+        value: mysql 
       - key: APP_KEY
         generateValue: true
       - key: APP_ENV
