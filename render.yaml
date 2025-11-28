@@ -1,20 +1,19 @@
 services:
-  # 2. Servicio de Backend PHP-FPM (Servicio Privado)
-  - type: web # <--- CAMBIO CLAVE: Usar 'web'
+  - type: web
     name: app
     env: docker
     dockerfilePath: docker/php/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
-    # NUEVO: Marcarlo como interno para que no tenga URL pública
+    
     internal: true
-    # NUEVO: Especificar el puerto que expone (PHP-FPM usa 9000)
-    # Aunque el Dockerfile ya lo expone, es buena práctica en el YAML
-    ports:
-      - 9000
-    # En el servicio 'app' del render.yaml
-    startCommand: "php /var/www/html/artisan migrate --force && php-fpm -F"
+    ports: 
+      - 80
+      - 9000 
+
+    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh" 
+    healthCheckPath: /api/health 
 
     # Variables de Entorno del Backend de Laravel
     envVars:
