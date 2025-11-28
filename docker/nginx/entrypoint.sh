@@ -1,19 +1,20 @@
 #!/bin/sh
 
-# Nombre del host de PHP-FPM (según el nombre del servicio en el YAML)
+# Nombre del host de PHP-FPM y puerto (según el nombre del servicio en el YAML)
 HOST_APP="app"
+PORT_APP="9000"
 
-echo "➡️ Waiting for the PHP-FPM service host resolution: ${HOST_APP}..."
+echo "➡️ Waiting for the PHP-FPM service at ${HOST_APP}:${PORT_APP}..."
 
-# Bucle para esperar que el host 'app' sea resoluble mediante ping.
-# Esto asegura que el Service Discovery de la plataforma haya registrado 'app'.
-until ping -c 1 ${HOST_APP} &> /dev/null
+# Bucle para esperar que el puerto 9000 esté disponible
+# nc (netcat) -z: modo cero-I/O (solo escaneo), -w 1: tiempo de espera de 1s
+until nc -z -w 1 ${HOST_APP} ${PORT_APP}
 do
-  echo "Host '${HOST_APP}' not found yet. Retrying in 5 seconds..."
+  echo "Host '${HOST_APP}' not responding on port ${PORT_APP}. Retrying in 5 seconds..."
   sleep 5
 done
 
-echo "✅ Host '${HOST_APP}' resolved. Starting Nginx..."
+echo "✅ Host '${HOST_APP}:${PORT_APP}' is up. Starting Nginx..."
 
 # Ejecutar el comando principal de Nginx (mantener Nginx en primer plano)
 # El 'exec' reemplaza el shell, asegurando que Nginx sea el PID 1

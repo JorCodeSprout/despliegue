@@ -1,7 +1,7 @@
 FROM nginx:stable-alpine
 
 # 1. Instalar herramientas necesarias (incluyendo ping para el entrypoint.sh)
-RUN apk update && apk add --no-cache shadow iputils && \
+RUN apk update && apk add --no-cache shadow netcat-openbsd && \
     groupadd -g 82 www-data || true && \
     usermod -a -G www-data nginx
 
