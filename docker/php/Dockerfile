@@ -29,4 +29,4 @@ RUN chmod +x /usr/local/bin/render-entrypoint.sh
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Comando de inicio: Usar el nuevo script que ejecuta las optimizaciones ANTES de PHP-FPM
-CMD ["/usr/local/bin/render-entrypoint.sh"]
+CMD ["/usr/local/sbin/php-fpm", "-F"]

@@ -15,5 +15,4 @@ php /var/www/html/artisan route:cache
 echo "⏳ Running database migrations..."
 php /var/www/html/artisan migrate --force
 
-# *** NOTA: El inicio de PHP-FPM ha sido removido ***
-# Una vez aquí, el script TERMINA (exit 0)
+# El script termina aquí.
