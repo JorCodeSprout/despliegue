@@ -1,51 +1,61 @@
 services:
-  # 2. Servicio de Backend PHP-FPM (Servicio Interno)
-  - type: web # RESTAURADO a 'web'
-    name: laravel-api 
-    env: docker
-    dockerfilePath: docker/php/Dockerfile
-    dockerContext: .
-    autoDeploy: true
-    branch: main
-    
+  # 2. Servicio de Backend PHP-FPM (Servicio Interno)
+  - type: web
+    name: laravel-api 
+    env: docker
+    dockerfilePath: docker/php/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    branch: main
+    
     # CRÍTICO: Indica que es un servicio interno (sin dominio público)
-    internal: true 
-    # CRÍTICO: El puerto es necesario para la comunicación interna
-    ports:
-      - 9000 
+    internal: true 
+    ports:
+      - 9000 
 
-    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh"
-    healthCheckPath: /api/health
+    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh"
+    healthCheckPath: /api/health
 
     # Variables de Entorno del Backend de Laravel
     envVars:
+      # NOTA: Estas credenciales deberían ser inyectadas de forma segura desde el Dashboard de Render.
+      - key: DB_HOST
+        value: gondola.proxy.rlwy.net
+      - key: DB_USERNAME
+        value: root 
+      - key: DB_PASSWORD
+        value: bKKteZDDnEdMMgSYRPgvETHwoZzGnfwX 
+      - key: DB_DATABASE
+        value: railway
+      - key: DB_PORT
+        value: 15296
+        
+      # Variables necesarias
       - key: DB_CONNECTION
         value: mysql
       - key: APP_KEY
         generateValue: true
       - key: APP_ENV
         value: production
+      # CRÍTICO: Usa la referencia dinámica correcta del host público para Laravel
       - key: NGINX_HOST
         value: ${ritmatiza.host}
 
+---
+
   # 3. Servicio Web Nginx (El Punto de Entrada Público)
   - type: web
-    name: ritmatiza
+    name: ritmatiza # Nombre del servicio público (Coincide con el dashboard)
     env: docker
     dockerfilePath: docker/nginx/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
-    # El puerto 80 es el puerto de escucha por defecto de Nginx y no necesita ser especificado aquí
-
-    # CRÍTICO: Comando que compila React y mueve los archivos
-    buildCommand: |
-      cd frontend && npm install
-      npm run build
-      mv dist/* ../backend/public/
-      cd ..
-
+    
+    # NOTA: Se elimina buildCommand ya que la compilación está en el Dockerfile (multi-stage)
+    
     envVars:
+      # CRÍTICO: Corregimos la referencia del host a ${ritmatiza.host}
       - key: APP_URL
         value: https://${ritmatiza.host}
 
