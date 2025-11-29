@@ -46,6 +46,5 @@ RUN mkdir -p /var/cache/nginx/client_temp /var/run/nginx \
     && chown -R nginx:nginx /var/www/html/laravel_entrypoint
 
 # 6. Ejecución: Iniciar Nginx
-USER nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
