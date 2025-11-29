@@ -7,7 +7,7 @@ Ver canciones solicitadas --> GET musica/sugerencias
 */
 import type { Entrega, User, UsuarioActualizado } from "../types";
 
-const API_URL = '/api/';
+const API_URL = '/api';
 
 export const fetchMisEntregas = async (token: string) : Promise<Entrega[]> => {
     try {

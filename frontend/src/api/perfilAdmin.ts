@@ -8,7 +8,7 @@ Actualizar un usuario --> PUT usuario/{usuario}/cambiar
 */
 import type { CrearUsuario, EditarUsuario, ProfesorAdmin, RespuestaObtenerUsuarios, User } from "../types";
 
-const API_URL = '/api/';
+const API_URL = '/api';
 
 export const fetchCrearUsuario = async (token: string | null, userData: CrearUsuario): Promise<CrearUsuario[]> => {
     try {

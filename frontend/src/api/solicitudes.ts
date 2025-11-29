@@ -11,7 +11,7 @@ Mostrar canciones pendientes --> musica/playlist
 
 import type { CancionPlaylist, SongItem, SugerenciasCanciones } from "../types";
 
-const API_URL = '/api/';
+const API_URL = '/api';
 
 export const fetchSolicitudes = async (token: string | null) : Promise<SugerenciasCanciones[]> => {
     try {
