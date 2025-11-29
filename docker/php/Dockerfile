@@ -29,6 +29,4 @@ RUN chmod +x /usr/local/bin/render-entrypoint.sh
 RUN chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Nuevo Comando de inicio (CMD): ejecuta el setup y luego lanza PHP-FPM
-# 'sh /usr/local/bin/render-entrypoint.sh &&' se asegura que el setup termine
-# antes de que el 'exec' reemplace el shell con PHP-FPM
 CMD sh -c "sh /usr/local/bin/render-entrypoint.sh && exec /usr/local/sbin/php-fpm -F"

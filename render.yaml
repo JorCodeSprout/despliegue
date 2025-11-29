@@ -1,6 +1,7 @@
 services:
+  # 1. Servicio Backend PHP-FPM (Laravel)
   - type: web
-    name: app
+    name: laravel-api # Cambiado de 'app' para coincidir con tu panel
     env: docker
     dockerfilePath: docker/php/Dockerfile
     dockerContext: .
@@ -9,44 +10,34 @@ services:
     
     internal: true
     ports: 
-      - 80
-      - 9000 
-
-    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh" 
+      - 9000 # Solo necesitamos exponer el puerto FPM
+      
+    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh" # Usa el script correcto
     healthCheckPath: /api/health 
 
-    # Variables de Entorno del Backend de Laravel
+    # Variables de Entorno de Laravel
     envVars:
-      # [SEGURIDAD] Estas credenciales de Railway están visibles. 
-      # Considera usar Secret Files o el dashboard de Render para inyectar estos valores.
-      - key: DB_HOST
-        value: gondola.proxy.rlwy.net
-      - key: DB_USERNAME
-        value: root 
-      # ... (otras variables de DB)
+      # ... (variables de DB)
       - key: DB_CONNECTION
         value: mysql
       - key: APP_KEY
         generateValue: true
       - key: APP_ENV
         value: production
-      - key: NGINX_HOST
-        value: ritmatiza-web.onrender.com
+      # NGINX_HOST ya no es necesario aquí, Nginx lo maneja
 
-  # 3. Servicio Web Nginx (El Punto de Entrada Público)
+  # 2. Servicio Web Nginx (El Punto de Entrada Público)
   - type: web
-    name: ritmatiza-web
+    name: ritmatiza # Coincide con tu panel
     env: docker
     dockerfilePath: docker/nginx/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
     
-    # ELIMINADO: buildCommand (la compilación se hace ahora en el Dockerfile)
-
     envVars:
       - key: APP_URL
-        value: https://${ritmatiza-web.host} # Esto inyecta la URL de Render automáticamente
-    
-    # [OPCIONAL] Health check es correcto, pero debe apuntar a un archivo *existente*
+        value: https://${ritmatiza.host} 
+      # Se asume que VITE_API_URL es pasado como ARG en el Dockerfile de Nginx
+
     healthCheckPath: /health.html
