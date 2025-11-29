@@ -17,27 +17,36 @@ services:
 
     # Variables de Entorno de Laravel
     envVars:
-      # ... (variables de DB)
+      # [SEGURIDAD] Estas credenciales de Railway están visibles. 
+      # Considera usar Secret Files o el dashboard de Render para inyectar estos valores.
+      - key: DB_HOST
+        value: gondola.proxy.rlwy.net
+      - key: DB_USERNAME
+        value: root 
+      # ... (otras variables de DB)
       - key: DB_CONNECTION
         value: mysql
       - key: APP_KEY
         generateValue: true
       - key: APP_ENV
         value: production
-      # NGINX_HOST ya no es necesario aquí, Nginx lo maneja
+      - key: NGINX_HOST
+        value: ritmatiza-web.onrender.com
 
-  # 2. Servicio Web Nginx (El Punto de Entrada Público)
+  # 3. Servicio Web Nginx (El Punto de Entrada Público)
   - type: web
-    name: ritmatiza # Coincide con tu panel
+    name: ritmatiza-web
     env: docker
     dockerfilePath: docker/nginx/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
     
+    # ELIMINADO: buildCommand (la compilación se hace ahora en el Dockerfile)
+
     envVars:
       - key: APP_URL
-        value: https://${ritmatiza.host} 
-      # Se asume que VITE_API_URL es pasado como ARG en el Dockerfile de Nginx
-
+        value: https://${ritmatiza-web.host} # Esto inyecta la URL de Render automáticamente
+    
+    # [OPCIONAL] Health check es correcto, pero debe apuntar a un archivo *existente*
     healthCheckPath: /health.html
