@@ -46,12 +46,12 @@ services:
 
     envVars:
     - key: APP_URL
-      value: https://${ritmatiza-web.host}/api
+      value: https://${ritmatiza.host}/api
       
     # AÑADIR ESTO: Esta variable inyecta la URL pública completa de la API
     # Render automáticamente resuelve ${ritmatiza-web.host} al dominio real (ej: ritmatiza-aeab.onrender.com)
     - key: VITE_API_URL
-      value: https://${ritmatiza-web.host}/api
+      value: https://${ritmatiza.host}/api
     
     # [OPCIONAL] Health check es correcto, pero debe apuntar a un archivo *existente*
     healthCheckPath: /health.html
