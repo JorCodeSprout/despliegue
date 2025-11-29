@@ -44,4 +44,4 @@ RUN mkdir -p /var/cache/nginx/client_temp /var/run/nginx \
 # 5. Ejecución: Iniciar Nginx directamente (eliminamos el entrypoint.sh)
 USER nginx
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;", "-p", "/var/run/nginx/"]
+CMD nginx -g 'daemon off;' -p /var/run/nginx/
