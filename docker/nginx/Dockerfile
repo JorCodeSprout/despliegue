@@ -35,8 +35,9 @@ COPY --from=frontend_builder /app/dist /var/www/html/public/
 # 4. Asegurarse de que el punto de entrada de Laravel exista
 COPY backend/public/index.php /var/www/html/public/index.php
 
-RUN mkdir -p /var/cache/nginx/client_temp \
+RUN mkdir -p /var/cache/nginx/client_temp /var/run/nginx \
     && chown -R nginx:nginx /var/cache/nginx \
+    && chown -R nginx:nginx /var/run/nginx \
     && chown -R nginx:nginx /var/www/html/public \
     && chown -R nginx:nginx /var/log/nginx
 
