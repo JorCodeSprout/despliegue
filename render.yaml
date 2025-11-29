@@ -45,8 +45,13 @@ services:
     # ELIMINADO: buildCommand (la compilación se hace ahora en el Dockerfile)
 
     envVars:
-      - key: APP_URL
-        value: https://${ritmatiza-web.host} # Esto inyecta la URL de Render automáticamente
+    - key: APP_URL
+      value: https://${ritmatiza-web.host}/api
+      
+    # AÑADIR ESTO: Esta variable inyecta la URL pública completa de la API
+    # Render automáticamente resuelve ${ritmatiza-web.host} al dominio real (ej: ritmatiza-aeab.onrender.com)
+    - key: VITE_API_URL
+      value: https://${ritmatiza-web.host}/api
     
     # [OPCIONAL] Health check es correcto, pero debe apuntar a un archivo *existente*
     healthCheckPath: /health.html
