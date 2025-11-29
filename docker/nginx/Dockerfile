@@ -39,11 +39,11 @@ COPY backend/public/index.php /var/www/html/laravel_entrypoint/index.php
 
 # 5. Corrección de Permisos
 RUN mkdir -p /var/cache/nginx/client_temp /var/run/nginx \
-    && chown -R nginx:nginx /var/run/nginx \
-    && chown -R nginx:nginx /var/cache/nginx \
-    && chown -R nginx:nginx /usr/share/nginx/html \
-    && chown -R nginx:nginx /var/log/nginx \
-    && chown -R nginx:nginx /var/www/html/laravel_entrypoint
+    && chown -R nginx:nginx /var/run/nginx \
+    && chown -R nginx:nginx /var/cache/nginx \
+    && chown -R nginx:nginx /usr/share/nginx/html \
+    && chown -R nginx:nginx /var/log/nginx \
+    && chown -R nginx:nginx /var/www/html/laravel_entrypoint
 
 # 6. Ejecución: Iniciar Nginx
 EXPOSE 80
