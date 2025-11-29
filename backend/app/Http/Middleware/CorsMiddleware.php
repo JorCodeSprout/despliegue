@@ -15,6 +15,8 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
+        $renderHost = env('APP_URL');
+
         // Define los orígenes permitidos
         $allowedOrigins = [
             // Orígenes del Frontend (React/Vite)
@@ -28,6 +30,8 @@ class CorsMiddleware
             'http://ritmatiza.local:3000',
             'https://ritmatiza.local:3000',
 
+            $renderHost,
+
             'http://localhost:3000',
             'https://localhost:3000',
             'https://ritmatiza.netlify.app'
@@ -40,6 +44,8 @@ class CorsMiddleware
         // Comprueba si el origen está en la lista de permitidos
         if (in_array($origin, $allowedOrigins)) {
             $allowedOrigin = $origin;
+        } else {
+            $allowedOrigin = $renderHost;
         }
 
         // Ejecuta la petición al controlador
@@ -47,7 +53,7 @@ class CorsMiddleware
 
         // Si $allowedOrigin es nulo (no está permitido), usa el primero de la lista
         // o considera el * (cuidado con esto en producción, pero es útil para debugging)
-        $finalAllowedOrigin = $allowedOrigin ?? $allowedOrigins[0];
+        $finalAllowedOrigin = $allowedOrigin ?? $renderHost;
 
         // Añade las cabeceras CORS a la respuesta
         $response->header('Access-Control-Allow-Origin', $finalAllowedOrigin);

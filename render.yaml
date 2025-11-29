@@ -1,29 +1,24 @@
 services:
-  # 1. Servicio Backend PHP-FPM (Laravel)
-  - type: web
-    name: laravel-api # Cambiado de 'app' para coincidir con tu panel
-    env: docker
-    dockerfilePath: docker/php/Dockerfile
-    dockerContext: .
-    autoDeploy: true
-    branch: main
-    
-    internal: true
-    ports: 
-      - 9000 # Solo necesitamos exponer el puerto FPM
-      
-    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh" # Usa el script correcto
-    healthCheckPath: /api/health 
+  # 2. Servicio de Backend PHP-FPM (Servicio Interno)
+  - type: web # RESTAURADO a 'web'
+    name: laravel-api 
+    env: docker
+    dockerfilePath: docker/php/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    branch: main
+    
+    # CRÍTICO: Indica que es un servicio interno (sin dominio público)
+    internal: true 
+    # CRÍTICO: El puerto es necesario para la comunicación interna
+    ports:
+      - 9000 
 
-    # Variables de Entorno de Laravel
+    startCommand: "sh /usr/local/bin/render-entrypoint-dual.sh"
+    healthCheckPath: /api/health
+
+    # Variables de Entorno del Backend de Laravel
     envVars:
-      # [SEGURIDAD] Estas credenciales de Railway están visibles. 
-      # Considera usar Secret Files o el dashboard de Render para inyectar estos valores.
-      - key: DB_HOST
-        value: gondola.proxy.rlwy.net
-      - key: DB_USERNAME
-        value: root 
-      # ... (otras variables de DB)
       - key: DB_CONNECTION
         value: mysql
       - key: APP_KEY
@@ -31,27 +26,27 @@ services:
       - key: APP_ENV
         value: production
       - key: NGINX_HOST
-        value: ritmatiza-web.onrender.com
+        value: ${ritmatiza.host}
 
   # 3. Servicio Web Nginx (El Punto de Entrada Público)
   - type: web
-    name: ritmatiza-web
+    name: ritmatiza
     env: docker
     dockerfilePath: docker/nginx/Dockerfile
     dockerContext: .
     autoDeploy: true
     branch: main
-    
-    # ELIMINADO: buildCommand (la compilación se hace ahora en el Dockerfile)
+    # El puerto 80 es el puerto de escucha por defecto de Nginx y no necesita ser especificado aquí
+
+    # CRÍTICO: Comando que compila React y mueve los archivos
+    buildCommand: |
+      cd frontend && npm install
+      npm run build
+      mv dist/* ../backend/public/
+      cd ..
 
     envVars:
-    - key: APP_URL
-      value: https://${ritmatiza.host}/api
-      
-    # AÑADIR ESTO: Esta variable inyecta la URL pública completa de la API
-    # Render automáticamente resuelve ${ritmatiza-web.host} al dominio real (ej: ritmatiza-aeab.onrender.com)
-    - key: VITE_API_URL
-      value: https://${ritmatiza.host}/api
-    
-    # [OPCIONAL] Health check es correcto, pero debe apuntar a un archivo *existente*
+      - key: APP_URL
+        value: https://${ritmatiza.host}
+
     healthCheckPath: /health.html
