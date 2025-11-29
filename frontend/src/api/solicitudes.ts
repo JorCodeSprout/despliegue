@@ -11,11 +11,11 @@ Mostrar canciones pendientes --> musica/playlist
 
 import type { CancionPlaylist, SongItem, SugerenciasCanciones } from "../types";
 
-const URL = import.meta.env.VITE_API_URL;
+const API_URL = '/api/';
 
 export const fetchSolicitudes = async (token: string | null) : Promise<SugerenciasCanciones[]> => {
     try {
-        const response = await fetch(`${URL}/musica/sugerencias`, {
+        const response = await fetch(`${API_URL}/musica/sugerencias`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ export const fetchSolicitudes = async (token: string | null) : Promise<Sugerenci
 
 export const fetchSugerirCancion = async (token: string | null, cancion: SongItem) => {
     try {
-        const response = await fetch(`${URL}/musica/sugerir`, {
+        const response = await fetch(`${API_URL}/musica/sugerir`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -67,7 +67,7 @@ export const fetchSugerirCancion = async (token: string | null, cancion: SongIte
 
 export const fetchAprobarSolicitud = async (token: string | null, sugerenciaID: number | null) => {
     try {
-        const response = await fetch(`${URL}/musica/sugerencias/${sugerenciaID}/add`, {
+        const response = await fetch(`${API_URL}/musica/sugerencias/${sugerenciaID}/add`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -90,7 +90,7 @@ export const fetchAprobarSolicitud = async (token: string | null, sugerenciaID: 
 
 export const fetchCancelarSolicitud = async (token: string | null, sugerenciaID: number | null) => {
     try {
-        const response = await fetch(`${URL}/musica/sugerencias/${sugerenciaID}/cancelar`, {
+        const response = await fetch(`${API_URL}/musica/sugerencias/${sugerenciaID}/cancelar`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -117,7 +117,7 @@ export const fetchBuscarCanciones = async (token: string | null, cancion: string
     });
 
     try {
-        const response = await fetch(`${URL}/musica/buscar?${params.toString()}`, {
+        const response = await fetch(`${API_URL}/musica/buscar?${params.toString()}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -141,7 +141,7 @@ export const fetchBuscarCanciones = async (token: string | null, cancion: string
 
 export const fetchMostrarPendientes = async (token: string): Promise<CancionPlaylist[]> => {
     try {
-        const response = await fetch(`${URL}/musica/playlist`, {
+        const response = await fetch(`${API_URL}/musica/playlist`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -161,7 +161,7 @@ export const fetchMostrarPendientes = async (token: string): Promise<CancionPlay
 
 export const fetchEliminarCancion = async (token: string | null, cancionId: string) => {
     try {
-        const response = await fetch(`${URL}/musica/playlist/${cancionId}/eliminar`, {
+        const response = await fetch(`${API_URL}/musica/playlist/${cancionId}/eliminar`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -187,7 +187,7 @@ export const fetchEliminarCancion = async (token: string | null, cancionId: stri
 
 export const fetchEstadoCancion = async (token: string | null, cancionId: string) => {
     try {
-        const response = await fetch(`${URL}/musica/playlist/${cancionId}/reproducida`, {
+        const response = await fetch(`${API_URL}/musica/playlist/${cancionId}/reproducida`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${token}`,

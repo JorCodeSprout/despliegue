@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useCallback, useEffect, useState } from "react";
 import type { User } from "../types";
 
-const URL = import.meta.env.VITE_API_URL;
+const URL = '/api';
 
 const MostrarPuntos: React.FC = () => {
     const {isLogged, role, token} = useAuth();

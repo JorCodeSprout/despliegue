@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import type { LoginFormProps, User } from '../types';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = '/api';
 
 const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
     const [email, setEmail] = useState('');

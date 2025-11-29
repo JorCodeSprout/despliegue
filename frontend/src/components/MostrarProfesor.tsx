@@ -3,7 +3,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useCallback, useEffect, useState } from "react";
 import type { Profesor } from "../types";
 
-const URL = import.meta.env.VITE_API_URL;
+const URL = '/api';
 
 const MostrarProfesor: React.FC = () => {
     const {isLogged, role, token} = useAuth();

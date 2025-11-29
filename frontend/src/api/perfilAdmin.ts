@@ -8,11 +8,11 @@ Actualizar un usuario --> PUT usuario/{usuario}/cambiar
 */
 import type { CrearUsuario, EditarUsuario, ProfesorAdmin, RespuestaObtenerUsuarios, User } from "../types";
 
-const URL = import.meta.env.VITE_API_URL;
+const API_URL = '/api/';
 
 export const fetchCrearUsuario = async (token: string | null, userData: CrearUsuario): Promise<CrearUsuario[]> => {
     try {
-        const response = await fetch(`${URL}/usuario/crear`, {
+        const response = await fetch(`${API_URL}/usuario/crear`, {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -36,7 +36,7 @@ export const fetchCrearUsuario = async (token: string | null, userData: CrearUsu
 
 export const fetchProfesores = async (token: string | null): Promise<ProfesorAdmin[]> => {
     try {
-        const response = await fetch(`${URL}/usuario/profesores`, {
+        const response = await fetch(`${API_URL}/usuario/profesores`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ export const fetchUsuarios = async (token: string | null) : Promise<RespuestaObt
             throw new Error("Token de autenticación no proporcionado");
         }
 
-        const response = await fetch(`${URL}/usuario/all`, {
+        const response = await fetch(`${API_URL}/usuario/all`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ export const fetchActualizarDatosAdmin = async (token: string, datos: EditarUsua
     delete datosBody.id;
 
     try {
-        const response = await fetch(`${URL}/usuario/${datos.id}/cambiar`, {
+        const response = await fetch(`${API_URL}/usuario/${datos.id}/cambiar`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,

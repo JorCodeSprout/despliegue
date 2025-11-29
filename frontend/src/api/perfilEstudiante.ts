@@ -7,11 +7,11 @@ Ver canciones solicitadas --> GET musica/sugerencias
 */
 import type { Entrega, User, UsuarioActualizado } from "../types";
 
-const URL = import.meta.env.VITE_API_URL;
+const API_URL = '/api/';
 
 export const fetchMisEntregas = async (token: string) : Promise<Entrega[]> => {
     try {
-        const response = await fetch(`${URL}/tareas/mis-entregas`, {
+        const response = await fetch(`${API_URL}/tareas/mis-entregas`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export const fetchMisEntregas = async (token: string) : Promise<Entrega[]> => {
 
 export const fetchActualizarDatos = async (token: string, datos: UsuarioActualizado): Promise<User> => {
     try {
-        const response = await fetch(`${URL}/usuario/update`, {
+        const response = await fetch(`${API_URL}/usuario/update`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,

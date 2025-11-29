@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import '../assets/styles/formulario_inicio.css'
 
-const URL = import.meta.env.VITE_API_URL;
+const URL = '/api/';
+
 const EMAIL_API_URL = `${URL}/contacto`;
 const Contacto = () => {
     const {user} = useAuth();

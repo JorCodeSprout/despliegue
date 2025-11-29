@@ -15,7 +15,7 @@ const mainContentStyles: React.CSSProperties = {
     minHeight: '90%'
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = '/api';
 const SPOTIFY_TOKEN_ENDPOINT = `${API_URL}/spotify_token`;
 
 const RANDOM_QUERIES = ['wos', 'duki', 'quevedo', 'nicky jam', 'bizarrap', 'Queen', 'Nirvana', 'Estopa'];

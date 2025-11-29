@@ -14,24 +14,24 @@ Calificar --> POST /entregas/entrega_id/calificar
 */
 import type { Entrega, Tarea } from "../types";
 
-const URL = import.meta.env.VITE_API_URL;
+const API_URL = '/api';
 
 export const fetchTareasByProfesor = async (profesor_id: number | null, token: string | null): Promise<Tarea[]> => {
-    let url: string;
+    let URL: string;
 
     const headers: Record<string, string> = {
         'Content-Type': 'application/json'
     };
 
     if(token && profesor_id) {
-        url = `${URL}/tareas/profesor/${profesor_id}`;
+        URL = `${API_URL}/tareas/profesor/${profesor_id}`;
         headers['Authorization'] = `Bearer ${token}`;
     } else {
-        url = `${URL}/tareas/ultimas`;
+        URL = `${API_URL}/tareas/ultimas`;
     }
 
     try {
-        const response = await fetch(url, {headers});
+        const response = await fetch(URL, {headers});
         if(!response.ok) {
             throw new Error(`Error al cargar las tareas. ${response.statusText}`);
         }
@@ -45,7 +45,7 @@ export const fetchTareasByProfesor = async (profesor_id: number | null, token: s
 
 export const fetchTodasTareas = async (token: string | null): Promise<Tarea[]> => {
     try {
-        const response = await fetch(`${URL}/tareas/ultimas`, {
+        const response = await fetch(`${API_URL}/tareas/ultimas`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export const fetchTodasTareas = async (token: string | null): Promise<Tarea[]> =
 
 export const fetchMisEntregas = async (token: string) : Promise<Entrega[]> => {
     try {
-        const response = await fetch(`${URL}/tareas/mis-entregas`, {
+        const response = await fetch(`${API_URL}/tareas/mis-entregas`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ export const fetchMisEntregas = async (token: string) : Promise<Entrega[]> => {
 
 export const fetchTodasEntregas = async (token: string, profesor_id: number) : Promise<Entrega[]> => {
     try {
-        const response = await fetch(`${URL}/tareas/${profesor_id}/entregas`, {
+        const response = await fetch(`${API_URL}/tareas/${profesor_id}/entregas`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ export const fetchTodasEntregas = async (token: string, profesor_id: number) : P
 
 export const fetchCalificar = async (entrega_id: number, estado: "APROBADA" | "RECHAZADA", token: string) => {
     try {
-        const response = await fetch(`${URL}/entregas/${entrega_id}/calificar`, {
+        const response = await fetch(`${API_URL}/entregas/${entrega_id}/calificar`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ export const fetchEnviarEntrega = async (tarea_id: number, archivo: File, token:
     formData.append('ruta', archivo);
 
     try {
-        const response = await fetch(`${URL}/tareas/${tarea_id}/entregar`, {
+        const response = await fetch(`${API_URL}/tareas/${tarea_id}/entregar`, {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`,
