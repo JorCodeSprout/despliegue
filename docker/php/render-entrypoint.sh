@@ -1,13 +1,12 @@
 #!/bin/sh
 
-echo "⚙️  Starting Laravel container..."
+echo "⚙️  Starting Laravel container setup..."
 
 # 1. Esperar a que la base de datos externa (Railway) esté disponible
-echo "⏳ Waiting for Railway DB to be ready..."
-# Usamos un simple bucle ya que no tenemos 'nc' en la base Alpine, o podemos usar el host real
-sleep 15 # Damos 15 segundos a Railway para que esté disponible
+echo "⏳ Waiting for DB to be ready..."
+sleep 15 
 
-# 2. Ejecutar optimizaciones (APP_KEY ya está disponible via Render ENV Vars)
+# 2. Ejecutar optimizaciones
 echo "✨ Caching configuration and routes..."
 php /var/www/html/artisan config:cache
 php /var/www/html/artisan route:cache
@@ -16,6 +15,5 @@ php /var/www/html/artisan route:cache
 echo "⏳ Running database migrations..."
 php /var/www/html/artisan migrate --force
 
-# 4. Iniciar PHP-FPM (mantenerlo en primer plano)
-echo "✅ Starting PHP-FPM on port 9000..."
-exec /usr/local/sbin/php-fpm -F
+# *** NOTA: El inicio de PHP-FPM ha sido removido ***
+# Una vez aquí, el script TERMINA (exit 0)
